@@ -12,7 +12,10 @@ public class Game extends JPanel {
     public static final int WIDTH = 800;   // Width of the game window
     public static final int HEIGHT = 600;  // Height of the game window
 
+    private int GAMESCORE = 0;
     private boolean isRunning;
+
+    private ScoreWindow scoreWindow = new ScoreWindow();
     private Thread gameThread;
 
     private Crosshair crosshair;
@@ -29,6 +32,9 @@ public class Game extends JPanel {
 
         // Initialize the targets list
         targets = new ArrayList<>();
+
+        scoreWindow.setVisible(true);
+        scoreWindow.setLocation(this.getX() + WIDTH + 10, this.getY() + (HEIGHT - scoreWindow.getHeight()) / 2);
 
         // Add mouse listener to track mouse clicks
         addMouseListener(new MouseAdapter() {
@@ -59,15 +65,6 @@ public class Game extends JPanel {
         isRunning = true;
         gameThread = new Thread(this::gameLoop);
         gameThread.start();
-    }
-
-    public void stop() {
-        isRunning = false;
-        try {
-            gameThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     private void gameLoop() {
@@ -104,13 +101,12 @@ public class Game extends JPanel {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, getWidth(), getHeight());
 
-        // Render the crosshair
-        crosshair.render(g);
-
         // Render the targets
         for (Target target : targets) {
             target.render(g);
         }
+
+        crosshair.render(g);
 
         // Dispose the graphics context
         g.dispose();
@@ -132,9 +128,12 @@ public class Game extends JPanel {
             int x = random.nextInt(WIDTH);
             int y = random.nextInt(HEIGHT);
             double depth = random.nextDouble();
-
             Target target = new Target(x, y, depth);
-            targets.add(target);
+            if(target.containsPoint(800, y) || target.containsPoint(x, 600) || target.containsPoint(0, y) || target.containsPoint(x, 0)) {
+
+            } else {
+                targets.add(target);
+            }
         }
     }
 
@@ -143,15 +142,15 @@ public class Game extends JPanel {
         while (iterator.hasNext()) {Target target = iterator.next();
             if (target.containsPoint(x, y)) {
                 iterator.remove();
-                // Perform any additional actions when a target is clicked
-                // For example, increment a score counter or play a sound effect
+                GAMESCORE++;
+                scoreWindow.setScore(GAMESCORE);
             }
         }
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("FPS Aim Trainer");
+            JFrame frame = new JFrame("albonec's Aim Trainer");
             Game game = new Game();
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setResizable(false);
