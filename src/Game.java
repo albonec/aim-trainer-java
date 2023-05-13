@@ -17,6 +17,7 @@ public class Game extends JPanel {
 
     private Crosshair crosshair;
     private List<Target> targets;
+    private Random random;
 
     public Game() {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -44,6 +45,14 @@ public class Game extends JPanel {
                 crosshair.setTargetPosition(e.getX(), e.getY());
             }
         });
+
+        // Initialize the game
+        initialize();
+    }
+
+    private void initialize() {
+        // Initialize the random number generator
+        random = new Random();
     }
 
     public void start() {
@@ -119,7 +128,6 @@ public class Game extends JPanel {
     }
 
     private void spawnTarget() {
-        Random random = new Random(1);
         if (random.nextDouble() < 0.01) {  // Adjust the probability as desired
             int x = random.nextInt(WIDTH);
             int y = random.nextInt(HEIGHT);
@@ -132,8 +140,7 @@ public class Game extends JPanel {
 
     private void checkTargetInteractions(int x, int y) {
         Iterator<Target> iterator = targets.iterator();
-        while (iterator.hasNext()) {
-            Target target = iterator.next();
+        while (iterator.hasNext()) {Target target = iterator.next();
             if (target.containsPoint(x, y)) {
                 iterator.remove();
                 // Perform any additional actions when a target is clicked
@@ -155,5 +162,4 @@ public class Game extends JPanel {
             game.start();
         });
     }
-
 }
