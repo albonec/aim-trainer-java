@@ -6,20 +6,22 @@ public class ScoreWindow extends JPanel {
     private static JLabel missedLabel;
     private static JLabel accuracyLabelTitle;
     private static JLabel accuracyLabelBody;
+    private static Component spacing = Box.createRigidArea(new Dimension(0, 75));
 
     public ScoreWindow() {
-        scoreLabel = new JLabel("Score: 0");
+        scoreLabel = new JLabel("Clicked: 0");
         missedLabel = new JLabel("Missed: 0");
         accuracyLabelTitle = new JLabel("Accuracy:");
         accuracyLabelBody = new JLabel("100%");
         add(scoreLabel);
         add(missedLabel);
+        add(spacing);
         add(accuracyLabelTitle);
         add(accuracyLabelBody);
     }
 
     public void setScore(int score) {
-        scoreLabel.setText("Score: " + score);
+        scoreLabel.setText("Clicked: " + score);
     }
 
     public void setMissedTargets(int missedTargets) {
