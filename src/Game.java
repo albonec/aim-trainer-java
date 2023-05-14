@@ -147,7 +147,6 @@ public class Game extends JPanel {
             if (target.containsPoint(x, y)) {
                 iterator.remove();
                 GAMESCORE++;
-                System.out.println(GAMESCORE);
                 scoreWindow.setScore(GAMESCORE);
             }
         }
