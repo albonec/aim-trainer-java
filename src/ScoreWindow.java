@@ -28,8 +28,8 @@ public class ScoreWindow extends JPanel {
         missedLabel.setText("Missed: " + missedTargets);
     }
 
-    public void setAccuracyLabelBody(float accuracy) {
-        accuracyLabelBody.setText(accuracy + "%");
+    public void setAccuracyLabelBody(int score, int missedTargets) {
+        accuracyLabelBody.setText(((float) score / (score + missedTargets) * 100) + "%");
     }
 
     @Override

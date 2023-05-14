@@ -79,7 +79,7 @@ public class Game extends JPanel {
             update();
             render();
             sleep(16);  // Sleep for a short time (about 60 FPS)
-            scoreWindow.setAccuracyLabelBody((float) score / (score + missedTargets) * 100);
+            scoreWindow.setAccuracyLabelBody(score, missedTargets);
         }
     }
 
