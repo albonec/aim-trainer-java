@@ -125,15 +125,18 @@ public class Game extends JPanel {
 
     private void spawnTarget() {
         if (random.nextDouble() < 0.01) {  // Adjust the probability as desired
-            int x = random.nextInt(WIDTH);
-            int y = random.nextInt(HEIGHT);
-            double depth = random.nextDouble();
-            Target target = new Target(x, y, depth);
-            if(target.containsPoint(800, y) || target.containsPoint(x, 600) || target.containsPoint(0, y) || target.containsPoint(x, 0)) {
+            int targetSize = 100; // Adjust the size of the target
 
-            } else {
-                targets.add(target);
-            }
+            int targetWidth = targetSize * 2;
+            int targetHeight = targetSize * 2;
+
+            int x = random.nextInt(WIDTH - targetWidth);
+            int y = random.nextInt(HEIGHT - targetHeight);
+
+            double depth = random.nextDouble(0.25) + 0.25;
+
+            Target target = new Target(x, y, depth);
+            targets.add(target);
         }
     }
 

@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.Random;
 
 public class Target {
 
@@ -7,11 +8,27 @@ public class Target {
     private double depth;
     private int lifespan;
 
+    private Color color;
+
     public Target(int x, int y, double depth) {
         this.x = x;
         this.y = y;
         this.depth = depth;
         this.lifespan = generateLifespan();
+
+        Random random = new Random();
+        int colorChoice = random.nextInt(3);
+        switch (colorChoice) {
+            case 0:
+                color = new Color(0xFF00000);
+                break;
+            case 1:
+                color = new Color(0x00FF00);
+                break;
+            case 2:
+                color = new Color(0x0000FF);
+                break;
+        }
     }
 
     public void update() {
@@ -31,7 +48,7 @@ public class Target {
 
     public void render(Graphics2D g) {
         int radius = (int) (100 * depth);
-        g.setColor(Color.RED);
+        g.setColor(color);
         g.fillOval(x, y, radius * 2, radius * 2);
     }
 
