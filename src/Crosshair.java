@@ -11,7 +11,7 @@ public class Crosshair {
     }
 
     public void render(Graphics2D g) {
-        g.setColor(Color.WHITE);
+        g.setColor(new Color(0xFFFFFF));
         g.drawLine(x - 10, y, x + 10, y);
         g.drawLine(x, y - 10, x, y + 10);
     }

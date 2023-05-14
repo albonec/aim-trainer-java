@@ -17,16 +17,25 @@ public class Target {
         this.lifespan = generateLifespan();
 
         Random random = new Random();
-        int colorChoice = random.nextInt(3);
+        int colorChoice = random.nextInt(6);
         switch (colorChoice) {
             case 0:
-                color = new Color(0xFF00000);
+                color = new Color(0xFF0000);
                 break;
             case 1:
-                color = new Color(0x00FF00);
+                color = new Color(0xFF8800);
                 break;
             case 2:
+                color = new Color(0xFFFF00);
+                break;
+            case 3:
+                color = new Color(0x00FF00);
+                break;
+            case 4:
                 color = new Color(0x0000FF);
+                break;
+            case 5:
+                color = new Color(0x8800FF);
                 break;
         }
     }
