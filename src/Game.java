@@ -169,10 +169,12 @@ public class Game extends JPanel {
             // Create the game and score panel
             Game game = new Game();
             ScoreWindow scoreWindow = new ScoreWindow();
+            ButtonPanel buttonPanel = new ButtonPanel();
 
             // Create a container panel to hold game and score panel
             JPanel containerPanel = new JPanel(new BorderLayout());
             containerPanel.add(game, BorderLayout.WEST);
+            containerPanel.add(buttonPanel, BorderLayout.SOUTH);
             containerPanel.add(scoreWindow, BorderLayout.EAST);
 
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
