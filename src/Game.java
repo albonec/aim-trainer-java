@@ -13,7 +13,8 @@ public class Game extends JPanel {
     public static final int WIDTH = 800;   // Width of the game window
     public static final int HEIGHT = 600;  // Height of the game window
 
-    private int GAMESCORE = 0;
+    private int score = 0;
+    private int missedTargets = 0;
     private boolean isRunning;
 
     private ScoreWindow scoreWindow = new ScoreWindow();
@@ -78,6 +79,7 @@ public class Game extends JPanel {
             update();
             render();
             sleep(16);  // Sleep for a short time (about 60 FPS)
+            scoreWindow.setAccuracyLabelBody((float) score / (score + missedTargets) * 100);
         }
     }
 
@@ -95,6 +97,8 @@ public class Game extends JPanel {
             target.update();
             if (target.isOffscreen()) {
                 iterator.remove();
+                missedTargets++;
+                scoreWindow.setMissedTargets(missedTargets);
             }
         }
     }
@@ -152,8 +156,8 @@ public class Game extends JPanel {
             Target target = iterator.next();
             if (target.containsPoint(x, y)) {
                 iterator.remove();
-                GAMESCORE++;
-                scoreWindow.setScore(GAMESCORE);
+                score++;
+                scoreWindow.setScore(score);
             }
         }
     }
