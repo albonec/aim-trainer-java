@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -35,6 +36,11 @@ public class Game extends JPanel {
 
         scoreWindow.setVisible(true);
         scoreWindow.setLocation(this.getX() + WIDTH + 10, this.getY() + (HEIGHT - scoreWindow.getHeight()) / 2);
+
+        setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB),
+                new Point(),
+                "InvisibleCursor"));
 
         // Add mouse listener to track mouse clicks
         addMouseListener(new MouseAdapter() {
