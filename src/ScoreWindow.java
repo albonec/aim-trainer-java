@@ -1,20 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class ScoreWindow extends JFrame {
-
-    private JLabel scoreLabel;
+public class ScoreWindow extends JPanel {
+    private static JLabel scoreLabel;
 
     public ScoreWindow() {
-        setTitle("Score");
-        setSize(200, 100);
-        setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-
         scoreLabel = new JLabel("Score: 0");
-        scoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        scoreLabel.setFont(new Font("Arial", Font.BOLD, 24));
         add(scoreLabel);
     }
 
@@ -22,9 +13,11 @@ public class ScoreWindow extends JFrame {
         scoreLabel.setText("Score: " + score);
     }
 
-    public void close() {
-        this.setVisible(false);
-        this.dispose();
+    @Override
+    public Dimension getPreferredSize() {
+        int width = 100; // Specify the desired width
+        int height = super.getPreferredSize().height;
+        return new Dimension(width, height);
     }
 
 }

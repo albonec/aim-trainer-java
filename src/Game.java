@@ -142,10 +142,12 @@ public class Game extends JPanel {
 
     private void checkTargetInteractions(int x, int y) {
         Iterator<Target> iterator = targets.iterator();
-        while (iterator.hasNext()) {Target target = iterator.next();
+        while (iterator.hasNext()) {
+            Target target = iterator.next();
             if (target.containsPoint(x, y)) {
                 iterator.remove();
                 GAMESCORE++;
+                System.out.println(GAMESCORE);
                 scoreWindow.setScore(GAMESCORE);
             }
         }
@@ -154,13 +156,24 @@ public class Game extends JPanel {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("albonec's Aim Trainer");
+
+            // Create the game and score panel
             Game game = new Game();
+            ScoreWindow scoreWindow = new ScoreWindow();
+
+            // Create a container panel to hold game and score panel
+            JPanel containerPanel = new JPanel(new BorderLayout());
+            containerPanel.add(game, BorderLayout.WEST);
+            containerPanel.add(scoreWindow, BorderLayout.EAST);
+
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setResizable(false);
-            frame.add(game);
+            frame.getContentPane().add(containerPanel);
             frame.pack();
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
+
+            // Start the game
             game.start();
         });
     }
