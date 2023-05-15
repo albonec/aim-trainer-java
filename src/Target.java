@@ -1,20 +1,26 @@
 import java.awt.*;
 import java.util.Random;
 
+//Target class gives attributes rules and color to targets (circles on screen)
 public class Target {
 
-    private int x;
+    private int x; //size
     private int y;
-    private double depth;
+    private double depth; //dilation to simulate depth variance
     private int lifespan;
 
-    private Color color;
+    private Color color; //color of the target
 
     public Target(int x, int y, double depth) {
         this.x = x;
         this.y = y;
         this.depth = depth;
         this.lifespan = generateLifespan();
+
+        /*
+        Randomly selects color between the colors of the rainbow.
+        The pre-defined colors in the Color class were too dull for this application.
+         */
 
         Random random = new Random();
         int colorChoice = random.nextInt(6);
@@ -28,8 +34,8 @@ public class Target {
         }
     }
 
-    public void update() {
-        lifespan--;
+    public void update() {                         // decrements the lifespan to make the targets disappear.
+        lifespan -= (Game.sleepIntervalMillis/17); // The speed at which this decreases is not affected by framerate
     }
 
     public boolean isOffscreen() {
@@ -50,6 +56,6 @@ public class Target {
     }
 
     private int generateLifespan() {
-        return (int) (depth * 90);
+        return (int) (depth * 85);
     }
 }

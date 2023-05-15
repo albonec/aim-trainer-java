@@ -8,7 +8,7 @@ public class ButtonPanel extends JPanel {
 
     public ButtonPanel() {
         clearScoresButton = new JButton("Clear Scores");
-        frameRateButton = new JButton("Framerate: 60 FPS");
+        frameRateButton = new JButton("Framerate: 30 FPS");
         add(spacing);
         add(clearScoresButton);
         add(frameRateButton);
@@ -21,18 +21,18 @@ public class ButtonPanel extends JPanel {
         });
 
         frameRateButton.addActionListener(e -> {
-            if(Game.sleepIntervalMillis == 17) {
-                Game.sleepIntervalMillis = 67;
-                frameRateButton.setText("Framerate: 15 FPS");
-            } else if (Game.sleepIntervalMillis == 67) {
-                Game.sleepIntervalMillis = 33;
-                frameRateButton.setText("Framerate: 30 FPS");
-            } else if (Game.sleepIntervalMillis == 33) {
+            if(Game.sleepIntervalMillis == 33) {
                 Game.sleepIntervalMillis = 22;
                 frameRateButton.setText("Framerate: 45 FPS");
             } else if (Game.sleepIntervalMillis == 22) {
                 Game.sleepIntervalMillis = 17;
                 frameRateButton.setText("Framerate: 60 FPS");
+            } else if (Game.sleepIntervalMillis == 17) {
+                Game.sleepIntervalMillis = 67;
+                frameRateButton.setText("Framerate: 15 FPS");
+            } else if (Game.sleepIntervalMillis == 67) {
+                Game.sleepIntervalMillis = 33;
+                frameRateButton.setText("Framerate: 30 FPS");
             }
         });
     }

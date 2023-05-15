@@ -17,7 +17,7 @@ public class Game extends JPanel {
     public static int missedTargets = 0;
     private boolean isRunning;
 
-    public static int sleepIntervalMillis = 17;
+    public static int sleepIntervalMillis = 33;
 
     public static ScoreWindow scoreWindow = new ScoreWindow();
     private Thread gameThread;
