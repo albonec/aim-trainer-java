@@ -34,7 +34,7 @@ public class ScoreWindow extends JPanel {
 
     @Override
     public Dimension getPreferredSize() {
-        int width = 100; // Specify the desired width
+        int width = 110; // Specify the desired width
         int height = super.getPreferredSize().height;
         return new Dimension(width, height);
     }
