@@ -13,11 +13,11 @@ public class Game extends JPanel {
     public static final int WIDTH = 800;   // Width of the game window
     public static final int HEIGHT = 600;  // Height of the game window
 
-    private int score = 0;
-    private int missedTargets = 0;
+    public static int score = 0;
+    public static int missedTargets = 0;
     private boolean isRunning;
 
-    private ScoreWindow scoreWindow = new ScoreWindow();
+    public static ScoreWindow scoreWindow = new ScoreWindow();
     private Thread gameThread;
 
     private Crosshair crosshair;
