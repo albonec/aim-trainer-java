@@ -13,18 +13,18 @@ public class Game extends JPanel {
     public static final int WIDTH = 800;   // Width of the game window
     public static final int HEIGHT = 600;  // Height of the game window
 
-    public static int score = 0;
-    public static int missedTargets = 0;
+    public static int score = 0; // Number of targets clicked by player
+    public static int missedTargets = 0; // Number of targets missed by player
     private boolean isRunning;
 
-    public static int sleepIntervalMillis = 33;
+    public static int sleepIntervalMillis = 33; // Interval to govern the framerate
 
-    public static ScoreWindow scoreWindow = new ScoreWindow();
-    private Thread gameThread;
+    public static ScorePanel scoreWindow = new ScorePanel(); // instance of ScoreWindow which is rendered.
+    private Thread gameThread; // Thread that runs the current Game.
 
-    private Crosshair crosshair;
-    private List<Target> targets;
-    private Random random;
+    private Crosshair crosshair; // Crosshair which is rendered.
+    private List<Target> targets; // List to store all extant targets.
+    private Random random; // Pseudo-Random Number Generator
 
     public Game() {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -65,26 +65,26 @@ public class Game extends JPanel {
     }
 
     private void initialize() {
-        // Initialize the random number generator
+        // Initialize the pseudo-random number generator
         random = new Random();
     }
 
-    public void start() {
+    public void start() { // Start a Game on gameThread
         isRunning = true;
         gameThread = new Thread(this::gameLoop);
         gameThread.start();
     }
 
-    private void gameLoop() {
+    private void gameLoop() { // Core execution loop of the game
         while (isRunning) {
             update();
             render();
-            sleep(sleepIntervalMillis);  // Sleep for a short time (about 60 FPS)
+            sleep(sleepIntervalMillis);  // Sleep for an interval (this directly affects the framerate of the game).
             scoreWindow.setAccuracyLabelBody(score, missedTargets);
         }
     }
 
-    private void update() {
+    private void update() { //update game objects
         updateTargets();
 
         // Spawn targets automatically
@@ -126,7 +126,7 @@ public class Game extends JPanel {
         Toolkit.getDefaultToolkit().sync();
     }
 
-    private void sleep(long millis) {
+    private void sleep(long millis) { //Catcher/wrapper method for Thread.sleep, used as a substitute
         try {
             Thread.sleep(millis);
         } catch (InterruptedException e) {
@@ -138,8 +138,8 @@ public class Game extends JPanel {
         if (random.nextDouble() < 0.01) {  // Adjust the probability as desired
             int targetSize = 100; // Adjust the size of the target
 
-            int targetWidth = targetSize * 2;
-            int targetHeight = targetSize * 2;
+            int targetWidth = targetSize * 2; // Horizontal diameter of target (ellipse)
+            int targetHeight = targetSize * 2; // Vertical diameter of target (ellipse)
 
             int x = random.nextInt(WIDTH - targetWidth);
             int y = random.nextInt(HEIGHT - targetHeight);
@@ -152,12 +152,12 @@ public class Game extends JPanel {
     }
 
     private void checkTargetInteractions(int x, int y) {
-        Iterator<Target> iterator = targets.iterator();
-        while (iterator.hasNext()) {
+        Iterator<Target> iterator = targets.iterator(); // Creates dummy variable to import the list of targets
+        while (iterator.hasNext()) { // Iterates through each Target object in the Iterator.
             Target target = iterator.next();
             if (target.containsPoint(x, y)) {
-                iterator.remove();
-                score++;
+                iterator.remove(); // Removes target if the passed parameter point (x,y) is inside the Target.
+                score++; // Increments the score and updates the scoreLabel JLabel in the GUI.
                 scoreWindow.setScore(score);
             }
         }
@@ -169,7 +169,7 @@ public class Game extends JPanel {
 
             // Create the game and score panel
             Game game = new Game();
-            ScoreWindow scoreWindow = new ScoreWindow();
+            ScorePanel scoreWindow = new ScorePanel();
             ButtonPanel buttonPanel = new ButtonPanel();
 
             // Create a container panel to hold game and score panel
@@ -178,6 +178,7 @@ public class Game extends JPanel {
             containerPanel.add(buttonPanel, BorderLayout.SOUTH);
             containerPanel.add(scoreWindow, BorderLayout.EAST);
 
+            // Configure the GUI.
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setResizable(false);
             frame.getContentPane().add(containerPanel);

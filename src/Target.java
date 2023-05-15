@@ -1,15 +1,15 @@
 import java.awt.*;
 import java.util.Random;
 
-//Target class gives attributes rules and color to targets (circles on screen)
+// Target class gives attributes rules and color to targets (circles on screen)
 public class Target {
 
     private int x; //size
     private int y;
-    private double depth; //dilation to simulate depth variance
+    private double depth; // Dilation to simulate depth variance
     private int lifespan;
 
-    private Color color; //color of the target
+    private Color color; // Color of the target
 
     public Target(int x, int y, double depth) {
         this.x = x;
@@ -34,7 +34,7 @@ public class Target {
         }
     }
 
-    public void update() {                         // decrements the lifespan to make the targets disappear.
+    public void update() {                         // Decrements the lifespan to make the targets disappear.
         lifespan -= (Game.sleepIntervalMillis/17); // The speed at which this decreases is not affected by framerate
     }
 
@@ -42,20 +42,20 @@ public class Target {
         return lifespan <= 0;
     }
 
-    public boolean containsPoint(int x, int y) {
+    public boolean containsPoint(int x, int y) { // Checks whether the point (x,y) is inside the target's area
         int radius = (int) (100 * depth);
         int centerX = this.x + radius;
         int centerY = this.y + radius;
         return Math.pow(centerX - x, 2) + Math.pow(centerY - y, 2) <= Math.pow(radius, 2);
     }
 
-    public void render(Graphics2D g) {
+    public void render(Graphics2D g) { // Renders the target object within the given Graphics2D context.
         int radius = (int) (100 * depth);
         g.setColor(color);
         g.fillOval(x, y, radius * 2, radius * 2);
     }
 
-    private int generateLifespan() {
+    private int generateLifespan() { // Assigns a value for the lifespan of the Target object
         return (int) (depth * 85);
     }
 }
