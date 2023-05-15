@@ -50,6 +50,6 @@ public class Target {
     }
 
     private int generateLifespan() {
-        return (int) (depth * 85);
+        return (int) (depth * 90);
     }
 }

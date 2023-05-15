@@ -17,6 +17,8 @@ public class Game extends JPanel {
     public static int missedTargets = 0;
     private boolean isRunning;
 
+    public static int sleepIntervalMillis = 17;
+
     public static ScoreWindow scoreWindow = new ScoreWindow();
     private Thread gameThread;
 
@@ -36,7 +38,6 @@ public class Game extends JPanel {
         targets = new ArrayList<>();
 
         scoreWindow.setVisible(true);
-        scoreWindow.setLocation(this.getX() + WIDTH + 10, this.getY() + (HEIGHT - scoreWindow.getHeight()) / 2);
 
         setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                 new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB),
@@ -78,7 +79,7 @@ public class Game extends JPanel {
         while (isRunning) {
             update();
             render();
-            sleep(16);  // Sleep for a short time (about 60 FPS)
+            sleep(sleepIntervalMillis);  // Sleep for a short time (about 60 FPS)
             scoreWindow.setAccuracyLabelBody(score, missedTargets);
         }
     }
