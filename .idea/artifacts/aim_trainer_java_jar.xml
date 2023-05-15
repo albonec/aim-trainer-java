@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="aim-trainer-java:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/aim_trainer_java_jar</output-path>
+    <root id="archive" name="aim-trainer-java.jar">
+      <element id="module-output" name="aim-trainer-java" />
+    </root>
+  </artifact>
+</component>
