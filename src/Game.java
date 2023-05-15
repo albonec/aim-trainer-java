@@ -19,7 +19,7 @@ public class Game extends JPanel {
 
     public static int sleepIntervalMillis = 33; // Interval to govern the framerate
 
-    public static ScorePanel scoreWindow = new ScorePanel(); // instance of ScoreWindow which is rendered.
+    public static ScorePanel scorePanel = new ScorePanel(); // instance of ScoreWindow which is rendered.
     private Thread gameThread; // Thread that runs the current Game.
 
     private Crosshair crosshair; // Crosshair which is rendered.
@@ -37,8 +37,9 @@ public class Game extends JPanel {
         // Initialize the targets list
         targets = new ArrayList<>();
 
-        scoreWindow.setVisible(true);
+        scorePanel.setVisible(true);
 
+        // Make cursor invisible while on screen
         setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                 new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB),
                 new Point(),
@@ -80,11 +81,11 @@ public class Game extends JPanel {
             update();
             render();
             sleep(sleepIntervalMillis);  // Sleep for an interval (this directly affects the framerate of the game).
-            scoreWindow.setAccuracyLabelBody(score, missedTargets);
+            scorePanel.setAccuracyLabelBody(score, missedTargets);
         }
     }
 
-    private void update() { //update game objects
+    private void update() { // Update game objects
         updateTargets();
 
         // Spawn targets automatically
@@ -92,14 +93,14 @@ public class Game extends JPanel {
     }
 
     private void updateTargets() {
-        Iterator<Target> iterator = targets.iterator();
-        while (iterator.hasNext()) {
+        Iterator<Target> iterator = targets.iterator(); // Creates dummy variable to import the list of targets
+        while (iterator.hasNext()) { // Iterates through each Target object in the Iterator.
             Target target = iterator.next();
-            target.update();
-            if (target.isOffscreen()) {
+            target.update(); // Updates the target.
+            if (target.isOffscreen()) { // If the target is offscreen (discarded), remove it from the list.
                 iterator.remove();
-                missedTargets++;
-                scoreWindow.setMissedTargets(missedTargets);
+                missedTargets++; // If the target has not been clicked, increment the number of missed targets.
+                scorePanel.setMissedTargets(missedTargets); // Update the missedTargets JLabel.
             }
         }
     }
@@ -108,7 +109,7 @@ public class Game extends JPanel {
         // Get the graphics context
         Graphics2D g = (Graphics2D) getGraphics();
 
-        // Clear the screen
+        // Clear the screen, fill in black background
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, getWidth(), getHeight());
 
@@ -126,7 +127,7 @@ public class Game extends JPanel {
         Toolkit.getDefaultToolkit().sync();
     }
 
-    private void sleep(long millis) { //Catcher/wrapper method for Thread.sleep, used as a substitute
+    private void sleep(long millis) { // Catcher/wrapper method for Thread.sleep, used as a substitute
         try {
             Thread.sleep(millis);
         } catch (InterruptedException e) {
@@ -158,7 +159,7 @@ public class Game extends JPanel {
             if (target.containsPoint(x, y)) {
                 iterator.remove(); // Removes target if the passed parameter point (x,y) is inside the Target.
                 score++; // Increments the score and updates the scoreLabel JLabel in the GUI.
-                scoreWindow.setScore(score);
+                scorePanel.setScore(score);
             }
         }
     }

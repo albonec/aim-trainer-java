@@ -23,8 +23,8 @@ public class ButtonPanel extends JPanel {
         clearScoresButton.addActionListener(e -> { // Instructions to execute when the clearScoresButton is pressed.
             Game.score = 0;
             Game.missedTargets = 0;
-            Game.scoreWindow.setMissedTargets(0);
-            Game.scoreWindow.setScore(0);
+            Game.scorePanel.setMissedTargets(0);
+            Game.scorePanel.setScore(0);
         });
 
         frameRateButton.addActionListener(e -> { // Instructions to execute when the frameRateButton is pressed.
