@@ -35,7 +35,12 @@ public class Target {
     }
 
     public void update() {                         // Decrements the lifespan to make the targets disappear.
-        lifespan -= (Game.sleepIntervalMillis/17); // The speed at which this decreases is not affected by framerate
+        switch(Game.sleepIntervalMillis) {
+            case 67 -> lifespan -= 4;
+            case 33 -> lifespan -= 2;
+            case 22 -> lifespan -= 1.5;
+            case 17 -> lifespan -= 1;    // The speed at which this decreases is not affected by framerate
+        }
     }
 
     public boolean isOffscreen() {
@@ -56,6 +61,6 @@ public class Target {
     }
 
     private int generateLifespan() { // Assigns a value for the lifespan of the Target object
-        return (int) (depth * 85);
+        return (int) ((int) (depth * 100) - 0.5);
     }
 }
